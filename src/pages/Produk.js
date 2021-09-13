@@ -13,10 +13,6 @@ import {
   TableCell,
   TableBody,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -26,18 +22,17 @@ import FormDialog from "../components/FormDialog";
 import UploadFile from "../components/UploadFile";
 import { postWithAuth } from "../services/axios/post";
 
-export default function Bab() {
-  const bab = useSelector((state) => state.fiturSoal.bab);
-  const materi = useSelector((state) => state.fiturSoal.materi);
-
+export default function Produk() {
+  const produk = useSelector((state) => state.produk.produk);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [judul, setJudul] = useState();
-  const [idMateri, setIdMateri] = useState();
+  const [namaProduk, setNamaProduk] = useState();
+  const [waktu, setWaktu] = useState();
+  const [harga, setHarga] = useState();
   const [file, setFile] = useState();
 
   async function postData(data) {
     try {
-      const res = await postWithAuth("/bab/insert", data);
+      const res = await postWithAuth("/produk/insert", data);
       setDialogOpen(false);
       window.location.reload();
     } catch (error) {
@@ -47,8 +42,9 @@ export default function Bab() {
 
   const handleSubmit = () => {
     const formData = new FormData();
-    formData.append("judul_bab", judul);
-    formData.append("id_materi", idMateri);
+    formData.append("produk", namaProduk);
+    formData.append("waktu", waktu);
+    formData.append("harga", harga);
     formData.append("url_gambar", file);
     postData(formData);
   };
@@ -57,7 +53,7 @@ export default function Bab() {
     <MainContainer>
       {dialogOpen && (
         <FormDialog
-          title="Tambah Materi"
+          title="Tambah Produk"
           button="Tambah"
           dialogOpen={dialogOpen}
           onButtonClick={() => handleSubmit()}
@@ -68,34 +64,32 @@ export default function Bab() {
               variant="outlined"
               margin="normal"
               fullWidth
-              id="judul_bab"
-              label="Judul Bab"
-              name="judul_bab"
+              id="produk"
+              label="Nama Produk"
+              name="produk"
               size="small"
-              onChange={(e) => setJudul(e.target.value)}
+              onChange={(e) => setNamaProduk(e.target.value)}
             />
-            <FormControl
+            <TextField
               variant="outlined"
+              margin="normal"
+              fullWidth
+              id="waktu"
+              label="Durasi"
+              name="waktu"
               size="small"
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-outlined-label">
-                Materi
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={idMateri}
-                onChange={(e) => setIdMateri(e.target.value)}
-                label="Materi"
-              >
-                {materi.map((materi) => (
-                  <MenuItem value={materi.id_materi}>
-                    {materi.judul_materi}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              onChange={(e) => setWaktu(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="harga"
+              label="Harga"
+              name="harga"
+              size="small"
+              onChange={(e) => setHarga(e.target.value)}
+            />
 
             <UploadFile parentCallback={(file) => setFile(file)} />
           </form>
@@ -109,7 +103,7 @@ export default function Bab() {
         style={{ marginBottom: 20 }}
         onClick={() => setDialogOpen(true)}
       >
-        Tambah Bab
+        Tambah Pengajar
       </Button>
 
       <TableContainer component={Paper}>
@@ -117,24 +111,26 @@ export default function Bab() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell align="left">Judul Bab</TableCell>
-              <TableCell align="center">Materi</TableCell>
+              <TableCell align="left">Produk</TableCell>
               <TableCell align="center">Thumbnail</TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell align="center">Waktu</TableCell>
+              <TableCell align="center">Harga</TableCell>
+              <TableCell align="center">Aksi</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {bab.map((item) => (
-              <TableRow key={item.id_bab}>
+            {produk.map((item) => (
+              <TableRow key={item.id_produk}>
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="left">{item.judul_bab}</TableCell>
-                <TableCell align="center">{item.id_materi}</TableCell>
+                <TableCell align="left">{item.produk}</TableCell>
                 <TableCell align="center">
                   <img src={item.url_gambar} style={{ height: 50 }} />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center">{item.waktu}</TableCell>
+                <TableCell align="center">{item.harga}</TableCell>
+                <TableCell align="center" style={{ maxWidth: 155 }}>
                   <Button size="small" color="primary">
                     <EditIcon />
                   </Button>

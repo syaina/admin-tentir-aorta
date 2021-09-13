@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MainContainer from "../containers/MainContainer";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   Card,
@@ -13,10 +14,6 @@ import {
   TableCell,
   TableBody,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -26,18 +23,16 @@ import FormDialog from "../components/FormDialog";
 import UploadFile from "../components/UploadFile";
 import { postWithAuth } from "../services/axios/post";
 
-export default function Bab() {
-  const bab = useSelector((state) => state.fiturSoal.bab);
-  const materi = useSelector((state) => state.fiturSoal.materi);
-
+export default function Pengajar() {
+  const pengajar = useSelector((state) => state.pengajar.pengajar);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [judul, setJudul] = useState();
-  const [idMateri, setIdMateri] = useState();
+  const [nama, setNama] = useState();
+  const [deskripsi, setDeskripsi] = useState();
   const [file, setFile] = useState();
 
   async function postData(data) {
     try {
-      const res = await postWithAuth("/bab/insert", data);
+      const res = await postWithAuth("/pengajar/insert", data);
       setDialogOpen(false);
       window.location.reload();
     } catch (error) {
@@ -47,8 +42,8 @@ export default function Bab() {
 
   const handleSubmit = () => {
     const formData = new FormData();
-    formData.append("judul_bab", judul);
-    formData.append("id_materi", idMateri);
+    formData.append("nama", nama);
+    formData.append("deskripsi", deskripsi);
     formData.append("url_gambar", file);
     postData(formData);
   };
@@ -57,7 +52,7 @@ export default function Bab() {
     <MainContainer>
       {dialogOpen && (
         <FormDialog
-          title="Tambah Materi"
+          title="Tambah Pengajar"
           button="Tambah"
           dialogOpen={dialogOpen}
           onButtonClick={() => handleSubmit()}
@@ -68,34 +63,22 @@ export default function Bab() {
               variant="outlined"
               margin="normal"
               fullWidth
-              id="judul_bab"
-              label="Judul Bab"
-              name="judul_bab"
+              id="nama"
+              label="Nama Pengajar"
+              name="nama"
               size="small"
-              onChange={(e) => setJudul(e.target.value)}
+              onChange={(e) => setNama(e.target.value)}
             />
-            <FormControl
+            <TextField
               variant="outlined"
+              margin="normal"
+              fullWidth
+              id="deskripsi"
+              label="Deskripsi"
+              name="deskripsi"
               size="small"
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-outlined-label">
-                Materi
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={idMateri}
-                onChange={(e) => setIdMateri(e.target.value)}
-                label="Materi"
-              >
-                {materi.map((materi) => (
-                  <MenuItem value={materi.id_materi}>
-                    {materi.judul_materi}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              onChange={(e) => setDeskripsi(e.target.value)}
+            />
 
             <UploadFile parentCallback={(file) => setFile(file)} />
           </form>
@@ -109,7 +92,7 @@ export default function Bab() {
         style={{ marginBottom: 20 }}
         onClick={() => setDialogOpen(true)}
       >
-        Tambah Bab
+        Tambah Pengajar
       </Button>
 
       <TableContainer component={Paper}>
@@ -117,24 +100,24 @@ export default function Bab() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell align="left">Judul Bab</TableCell>
-              <TableCell align="center">Materi</TableCell>
+              <TableCell align="left">Nama Pengajar</TableCell>
+              <TableCell align="left">Deskripsi</TableCell>
               <TableCell align="center">Thumbnail</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {bab.map((item) => (
-              <TableRow key={item.id_bab}>
+            {pengajar.map((item) => (
+              <TableRow key={item.id_pengajar}>
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="left">{item.judul_bab}</TableCell>
-                <TableCell align="center">{item.id_materi}</TableCell>
+                <TableCell align="left">{item.nama}</TableCell>
+                <TableCell align="left">{item.deskripsi}</TableCell>
                 <TableCell align="center">
                   <img src={item.url_gambar} style={{ height: 50 }} />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" style={{ maxWidth: 155 }}>
                   <Button size="small" color="primary">
                     <EditIcon />
                   </Button>

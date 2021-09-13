@@ -8,8 +8,9 @@ import Divider from "@material-ui/core/Divider";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
+import SchoolIcon from "@material-ui/icons/School";
+import StarIcon from "@material-ui/icons/Star";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
@@ -24,28 +25,59 @@ export default function Menu() {
     dispatch(setTitle(title));
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLogin");
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 1000);
+  };
+
   return (
     <>
       <List>
-        <ListItem button onClick={() => routeChange("/", "Dashboard")}>
+        <ListItem
+          button
+          onClick={() => routeChange("/admin/dashboard", "Dashboard")}
+        >
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
 
-        <ListItem button onClick={() => routeChange("/orders", "Order")}>
+        <ListItem button onClick={() => routeChange("/admin/orders", "Order")}>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
           <ListItemText primary="Orders" />
         </ListItem>
 
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => routeChange("/admin/customer", "Customer")}
+        >
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText primary="Customers" />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={() => routeChange("/admin/pengajar", "Pengajar")}
+        >
+          <ListItemIcon>
+            <SchoolIcon />
+          </ListItemIcon>
+          <ListItemText primary="Pengajar" />
+        </ListItem>
+
+        <ListItem button onClick={() => routeChange("/admin/produk", "Produk")}>
+          <ListItemIcon>
+            <StarIcon />
+          </ListItemIcon>
+          <ListItemText primary="Produk" />
         </ListItem>
       </List>
 
@@ -53,19 +85,19 @@ export default function Menu() {
 
       <List>
         <ListSubheader inset>Fitur Soal</ListSubheader>
-        <ListItem button onClick={() => routeChange("/materi", "Materi")}>
+        <ListItem button onClick={() => routeChange("/admin/materi", "Materi")}>
           <ListItemIcon>
             <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Materi" />
         </ListItem>
-        <ListItem button onClick={() => routeChange("/bab", "Bab")}>
+        <ListItem button onClick={() => routeChange("/admin/bab", "Bab")}>
           <ListItemIcon>
             <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Bab" />
         </ListItem>
-        <ListItem button onClick={() => routeChange("/soal", "Soal")}>
+        <ListItem button onClick={() => routeChange("/admin/soal", "Soal")}>
           <ListItemIcon>
             <AssignmentIcon />
           </ListItemIcon>
@@ -73,43 +105,16 @@ export default function Menu() {
         </ListItem>
       </List>
 
-      {/* <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem> */}
+      <Divider />
 
-      {/* <ListItem button>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="CRM" />
-      </ListItem> */}
+      <List>
+        <ListItem button onClick={() => logout()}>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </List>
     </>
   );
 }
-
-// export const secondaryListItems = (
-//   <div>
-//     <ListSubheader inset>Saved reports</ListSubheader>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Current month" />
-//     </ListItem>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Last quarter" />
-//     </ListItem>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <AssignmentIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Year-end sale" />
-//     </ListItem>
-//   </div>
-// );

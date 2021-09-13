@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import MainContainer from "../containers/MainContainer";
+import React, { useEffect, useState } from "react";
+import MainContainer from "../../containers/MainContainer";
 import {
-  Grid,
-  Card,
   Button,
-  Typography,
   TableContainer,
   Paper,
   Table,
@@ -13,31 +10,24 @@ import {
   TableCell,
   TableBody,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import FormDialog from "../../components/FormDialog";
 
 import { useSelector } from "react-redux";
-import FormDialog from "../components/FormDialog";
-import UploadFile from "../components/UploadFile";
-import { postWithAuth } from "../services/axios/post";
+import UploadFile from "../../components/UploadFile";
+import { postWithAuth } from "../../services/axios/post";
 
-export default function Bab() {
-  const bab = useSelector((state) => state.fiturSoal.bab);
+export default function Materi() {
   const materi = useSelector((state) => state.fiturSoal.materi);
-
   const [dialogOpen, setDialogOpen] = useState(false);
   const [judul, setJudul] = useState();
-  const [idMateri, setIdMateri] = useState();
   const [file, setFile] = useState();
 
   async function postData(data) {
     try {
-      const res = await postWithAuth("/bab/insert", data);
+      const res = await postWithAuth("/materi/insert", data);
       setDialogOpen(false);
       window.location.reload();
     } catch (error) {
@@ -47,8 +37,7 @@ export default function Bab() {
 
   const handleSubmit = () => {
     const formData = new FormData();
-    formData.append("judul_bab", judul);
-    formData.append("id_materi", idMateri);
+    formData.append("judul_materi", judul);
     formData.append("url_gambar", file);
     postData(formData);
   };
@@ -68,35 +57,12 @@ export default function Bab() {
               variant="outlined"
               margin="normal"
               fullWidth
-              id="judul_bab"
-              label="Judul Bab"
-              name="judul_bab"
+              id="judul_materi"
+              label="Judul Materi"
+              name="judul_materi"
               size="small"
               onChange={(e) => setJudul(e.target.value)}
             />
-            <FormControl
-              variant="outlined"
-              size="small"
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-outlined-label">
-                Materi
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={idMateri}
-                onChange={(e) => setIdMateri(e.target.value)}
-                label="Materi"
-              >
-                {materi.map((materi) => (
-                  <MenuItem value={materi.id_materi}>
-                    {materi.judul_materi}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
             <UploadFile parentCallback={(file) => setFile(file)} />
           </form>
         </FormDialog>
@@ -109,7 +75,7 @@ export default function Bab() {
         style={{ marginBottom: 20 }}
         onClick={() => setDialogOpen(true)}
       >
-        Tambah Bab
+        Tambah Materi
       </Button>
 
       <TableContainer component={Paper}>
@@ -117,24 +83,22 @@ export default function Bab() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell align="left">Judul Bab</TableCell>
-              <TableCell align="center">Materi</TableCell>
+              <TableCell align="left">Judul Materi</TableCell>
               <TableCell align="center">Thumbnail</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {bab.map((item) => (
-              <TableRow key={item.id_bab}>
+            {materi.map((item) => (
+              <TableRow key={item.id_materi}>
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="left">{item.judul_bab}</TableCell>
-                <TableCell align="center">{item.id_materi}</TableCell>
+                <TableCell align="left">{item.judul_materi}</TableCell>
                 <TableCell align="center">
                   <img src={item.url_gambar} style={{ height: 50 }} />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" style={{ maxWidth: 155 }}>
                   <Button size="small" color="primary">
                     <EditIcon />
                   </Button>

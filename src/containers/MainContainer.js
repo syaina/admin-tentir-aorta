@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainContainer(props) {
+export default function MainContainer({ children }) {
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -100,7 +100,7 @@ export default function MainContainer(props) {
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
-        {props.content}
+        {children}
         <Box pt={4}>
           <Copyright />
         </Box>

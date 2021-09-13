@@ -20,26 +20,23 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getWithAuth } from "../services/axios/get";
-import { setOrder } from "../store/actions/orderAction";
+import { setCustomer } from "../store/actions/customerAction";
 
-export default function Orders() {
+export default function Customer() {
   const dispatch = useDispatch();
 
-  const orders = useSelector((state) => state.order.order);
-
-  async function getOrders() {
+  const customers = useSelector((state) => state.customer.customer);
+  async function getCustomers() {
     try {
-      const res = await getWithAuth("/booking");
-      if (res.status == 200) {
-        dispatch(setOrder(res.data.results));
-      }
+      const res = await getWithAuth("/user");
+      console.log(res);
+      dispatch(setCustomer(res.data.results));
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
-
   useEffect(() => {
-    getOrders();
+    getCustomers();
   }, [dispatch]);
 
   return (
@@ -49,33 +46,23 @@ export default function Orders() {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell align="left">Customer</TableCell>
-              <TableCell align="center">No. Handphone</TableCell>
-              <TableCell align="center">Produk</TableCell>
-              <TableCell align="center">Tanggal</TableCell>
-              <TableCell align="center">Bukti Transfer</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Aksi</TableCell>
+              <TableCell align="left">Nama</TableCell>
+              <TableCell align="center">Email</TableCell>
+              <TableCell align="center">Pekerjaan</TableCell>
+              <TableCell align="center">Asal Universitas</TableCell>
+              <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((item) => (
+            {customers.data.map((item) => (
               <TableRow key={item.id_pengajar}>
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="left">{item.id_user}</TableCell>
-                <TableCell align="center">{item.no_handphone}</TableCell>
-                <TableCell align="center">
-                  {item.id_produk === "other"
-                    ? `Lainnya: ${item.other_produk}`
-                    : item.id_produk}
-                </TableCell>
-                <TableCell align="center">{item.tanggal}</TableCell>
-                <TableCell align="center">
-                  <img src={item.bukti_transfer} style={{ height: 50 }} />
-                </TableCell>
-                <TableCell align="center">{item.status}</TableCell>
+                <TableCell align="left">{item.nama}</TableCell>
+                <TableCell align="center">{item.email}</TableCell>
+                <TableCell align="center">{item.pekerjaan}</TableCell>
+                <TableCell align="center">{item.asal_universitas}</TableCell>
                 <TableCell align="center" style={{ maxWidth: 155 }}>
                   <Button size="small" color="primary">
                     <EditIcon />

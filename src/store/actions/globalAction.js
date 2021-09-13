@@ -13,3 +13,17 @@ export const setTitle = (title) => {
     payload: title,
   };
 };
+
+export const setAlert = (alert) => {
+  return {
+    type: ActionTypes.SET_ALERT,
+    payload: alert,
+  };
+};
+
+export const setSession = (session) => {
+  return {
+    type: ActionTypes.SET_SESSION,
+    payload: session,
+  };
+};

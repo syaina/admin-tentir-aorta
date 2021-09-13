@@ -3,12 +3,11 @@ import { getToken } from "../auth.service";
 
 const baseURL = "https://api.tentiraorta.com/";
 
-export const getAPI = (endpoint) => {
+export const postAPI = (endpoint, data) => {
   const promise = new Promise((resolve, reject) => {
     axios
-      .get(baseURL + endpoint)
+      .post(baseURL + endpoint, data)
       .then((response) => {
-        //   console.log(response);
         resolve(response);
       })
       .catch((error) => {
@@ -19,18 +18,19 @@ export const getAPI = (endpoint) => {
   return promise;
 };
 
-export const getWithAuth = (endpoint) => {
+export const postWithAuth = (endpoint, data) => {
   const token = getToken();
 
   const config = {
     headers: {
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
   };
 
   const promise = new Promise((resolve, reject) => {
     axios
-      .get(baseURL + endpoint, config)
+      .post(baseURL + endpoint, data, config)
       .then((response) => {
         resolve(response);
       })

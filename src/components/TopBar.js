@@ -7,6 +7,8 @@ import Badge from "@material-ui/core/Badge";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Menus from "./Menus";
 import { makeStyles } from "@material-ui/core/styles";
@@ -100,12 +102,15 @@ const useStyles = makeStyles((theme) => ({
 export default function TopBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const title = useSelector((state) => state.main.title);
 
@@ -143,6 +148,15 @@ export default function TopBar() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          {/* <Box mx={2}>
+            <Button
+              size="small"
+              style={{ backgroundColor: "#ffffff" }}
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </Box> */}
         </Toolbar>
       </AppBar>
 

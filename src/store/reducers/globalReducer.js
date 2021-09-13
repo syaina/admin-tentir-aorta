@@ -6,6 +6,15 @@ const initialState = {
     message: "",
   },
   title: "",
+  alert: {
+    isOpen: false,
+    severity: "",
+    message: "",
+  },
+  session: {
+    isLogin: false,
+    token: "",
+  },
 };
 
 export const globalReducer = (state = initialState, { type, payload }) => {
@@ -19,6 +28,16 @@ export const globalReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         title: payload,
+      };
+    case ActionTypes.SET_ALERT:
+      return {
+        ...state,
+        alert: payload,
+      };
+    case ActionTypes.SET_SESSION:
+      return {
+        ...state,
+        session: payload,
       };
     default:
       return state;
