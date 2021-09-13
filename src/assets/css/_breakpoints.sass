@@ -1,0 +1,49 @@
+// value         |0px     600px    960px    1280px   1920px
+// key           |xs      sm       md       lg       xl
+// screen width  |--------|--------|--------|--------|-------->
+// range         |   xs   |   sm   |   md   |   lg   |   xl
+
+.max-width--sm
+    max-width: 960px
+    margin: auto
+
+$media-desktop: "only screen and (max-width : 1024px)"
+$media-tablet: "only screen and (max-width : 768px)"
+$media-mobile: "only screen and (max-width : 600px)"
+$media-mobile-sm: "only screen and (max-width : 480px)"
+
+
+@media #{$media-desktop}
+    
+
+@media #{$media-tablet} 
+    header .header-container
+        width: calc( 100% - 2rem )
+
+    .container
+        width: calc( 100% - 2rem )
+
+    .card-container
+        grid-template-columns: 1fr 1fr 1fr 1fr
+
+@media #{$media-mobile} 
+    .card-container
+        grid-template-columns: 1fr 1fr
+
+
+@media #{$media-mobile-sm}
+    .container
+        width: calc( 100% - 2rem )
+
+    .movie-card .top-section
+        flex-direction: column
+
+    .movie-card .top-section .top-section__poster-container
+        margin-right: auto
+        margin: auto
+        margin-bottom: 2rem
+
+    .movie-card .main-section
+        grid-template-columns: 1fr
+
+        
