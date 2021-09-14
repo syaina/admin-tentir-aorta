@@ -17,10 +17,11 @@ import Dashboard from "../pages/Dashboard";
 import Orders from "../pages/Orders";
 import Pengajar from "../pages/Pengajar";
 import Produk from "../pages/Produk";
-import Materi from "../pages/Materi/Materi";
+import Materi from "../pages/Materi";
 import Bab from "../pages/Bab";
 import Soal from "../pages/Soal";
 import Customer from "../pages/Customer";
+import MateriUpdate from "../pages/MateriUpdate";
 
 function routes() {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ function routes() {
             <Route exact path="/admin/pengajar" component={Pengajar} />
             <Route exact path="/admin/produk" component={Produk} />
             <Route exact path="/admin/materi" component={Materi} />
+            <Route exact path="/admin/materi/:id" component={MateriUpdate} />
             <Route exact path="/admin/bab" component={Bab} />
             <Route exact path="/admin/soal" component={Soal} />
             <Route exact path="/admin/customer" component={Customer} />
