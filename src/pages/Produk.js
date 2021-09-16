@@ -103,7 +103,7 @@ export default function Produk() {
         style={{ marginBottom: 20 }}
         onClick={() => setDialogOpen(true)}
       >
-        Tambah Pengajar
+        Tambah Produk
       </Button>
 
       <TableContainer component={Paper}>

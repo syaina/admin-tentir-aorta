@@ -50,7 +50,6 @@ export default function Customer() {
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Pekerjaan</TableCell>
               <TableCell align="center">Asal Universitas</TableCell>
-              <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -63,14 +62,6 @@ export default function Customer() {
                 <TableCell align="center">{item.email}</TableCell>
                 <TableCell align="center">{item.pekerjaan}</TableCell>
                 <TableCell align="center">{item.asal_universitas}</TableCell>
-                <TableCell align="center" style={{ maxWidth: 155 }}>
-                  <Button size="small" color="primary">
-                    <EditIcon />
-                  </Button>
-                  <Button size="small" color="secondary">
-                    <DeleteIcon />
-                  </Button>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

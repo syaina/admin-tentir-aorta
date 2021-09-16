@@ -30,7 +30,7 @@ export default function ConfirmDialog({
       <DialogActions>
         <Button
           color="primary"
-          variant="contained"
+          variant="outlined"
           onClick={() => onCancelClick()}
         >
           Kembali

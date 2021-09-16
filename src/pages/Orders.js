@@ -64,24 +64,23 @@ export default function Orders() {
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="left">{item.id_user}</TableCell>
+                <TableCell align="left">{item.user}</TableCell>
                 <TableCell align="center">{item.no_handphone}</TableCell>
                 <TableCell align="center">
                   {item.id_produk === "other"
                     ? `Lainnya: ${item.other_produk}`
-                    : item.id_produk}
+                    : item.produk}
                 </TableCell>
                 <TableCell align="center">{item.tanggal}</TableCell>
                 <TableCell align="center">
-                  <img src={item.bukti_transfer} style={{ height: 50 }} />
+                  <a href={item.bukti_transfer} target="_blank">
+                    <img src={item.bukti_transfer} style={{ height: 50 }} />
+                  </a>
                 </TableCell>
                 <TableCell align="center">{item.status}</TableCell>
                 <TableCell align="center" style={{ maxWidth: 155 }}>
                   <Button size="small" color="primary">
                     <EditIcon />
-                  </Button>
-                  <Button size="small" color="secondary">
-                    <DeleteIcon />
                   </Button>
                 </TableCell>
               </TableRow>
