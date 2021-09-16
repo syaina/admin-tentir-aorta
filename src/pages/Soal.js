@@ -489,7 +489,7 @@ export default function Soal() {
                 <TableCell align="center">
                   {item.jawaban.toUpperCase()}
                 </TableCell>
-                <TableCell align="center" style={{ maxWidth: 155 }}>
+                <TableCell align="center" style={{ minWidth: 160 }}>
                   <Button
                     size="small"
                     color="primary"

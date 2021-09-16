@@ -144,19 +144,10 @@ export default function TopBar() {
             {title}
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            {/* <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
-            </Badge>
+            </Badge> */}
           </IconButton>
-          {/* <Box mx={2}>
-            <Button
-              size="small"
-              style={{ backgroundColor: "#ffffff" }}
-              onClick={() => logout()}
-            >
-              Logout
-            </Button>
-          </Box> */}
         </Toolbar>
       </AppBar>
 

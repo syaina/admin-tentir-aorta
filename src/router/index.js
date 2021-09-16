@@ -70,9 +70,11 @@ function routes() {
     getSoal();
   }, []);
 
+  const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
+
   return (
     <div style={{ display: "flex" }}>
-      <Router>
+      <Router basename={baseUrl}>
         <Route exact path="/login" component={Login}>
           {isLogin && <Redirect to="/admin/dashboard" />}
         </Route>

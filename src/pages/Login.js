@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { postAPI } from "../services/axios/post";
 import { useSelector, useDispatch } from "react-redux";
 import { setAlert, setSession } from "../store/actions/globalAction";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,7 @@ export default function Login() {
   const classes = useStyles();
   const alert = useSelector((state) => state.main.alert);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [admin, setAdmin] = useState({ email: "", password: "" });
 
@@ -83,7 +85,7 @@ export default function Login() {
             message: "",
           })
         );
-        window.location.href = "/admin/dashboard";
+        history.push("/admin/dashboard");
       }, 2000);
     } catch (error) {
       console.log(error);
@@ -170,10 +172,10 @@ export default function Login() {
                 })
               }
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -183,7 +185,7 @@ export default function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -194,7 +196,7 @@ export default function Login() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
             {/* <Box mt={5}>
               <Copyright />
             </Box> */}
